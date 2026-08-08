@@ -10,46 +10,51 @@ on:
         required: true
         default: 'production'
 
+# 👇 显式声明 GITHUB_TOKEN 需要写权限
+permissions:
+  contents: write
+
 jobs:
   run_job:
     runs-on: ubuntu-latest
-    
+
     steps:
     - name: Checkout repository
       uses: actions/checkout@v4
-      
+
     - name: Set up Python
       uses: actions/setup-python@v4
       with:
         python-version: '3.10'
-        
+
     - name: Install dependencies
       run: python -m pip install --upgrade pip
-        
+
     - name: Run Python script
       run: python assets/freetv/freetv.py
-      
+
     - name: Create history directory
       run: mkdir -p history/freetv
-          
+
     - name: Commit changes
       run: |
         git config --local user.email "actions@github.com"
         git config --local user.name "GitHub Actions"
-        
+
         git add assets/freetv/freetv_output.txt || true
         git add assets/freetv/freetv_output_cctv.txt || true
         git add assets/freetv/freetv_output_ws.txt || true
         git add assets/freetv/freetv_output_other.txt || true
-        
+
         beijing_date=$(TZ=':Asia/Shanghai' date +'%Y%m%d')
         git commit -m ":tv: (Freetv) AutoUpdate ${beijing_date}" || echo "No changes"
-        
+
         current_datetime=$(date +"%Y%m%d_%H%M%S")
-        zip "history/freetv/${current_datetime}_freetv_output.zip" assets/freetv/freetv_output.txt
-        git add "history/freetv/${current_datetime}_freetv_output.zip"
+        zip_filename="${current_datetime}_freetv_output.zip"
+        zip "history/freetv/${zip_filename}" assets/freetv/freetv_output.txt
+        git add "history/freetv/${zip_filename}"
         git commit -m "(freetv) Archive file as ZIP" || echo "No archive"
-          
+
     - name: Push changes
       uses: ad-m/github-push-action@master
       with:
