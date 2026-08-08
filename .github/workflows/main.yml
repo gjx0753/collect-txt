@@ -2,7 +2,7 @@ name: 'Daily Job'
 
 on:
   schedule:
-    - cron: '0 0 * * *'
+    - cron: '0 0 * * *'  # UTC
   workflow_dispatch:
     inputs:
       environment:
@@ -11,7 +11,7 @@ on:
         default: 'production'
 
 permissions:
-  contents: write  # 关键：授予写入权限
+  contents: write
 
 jobs:
   run_job:
@@ -20,7 +20,10 @@ jobs:
     steps:
     - name: Checkout repository
       uses: actions/checkout@v4
-      
+      with:
+        ref: master           # 确保检出的是分支（避免 detached HEAD）
+        fetch-depth: 0        # 让 git pull 有足够历史
+
     - name: Set up Python
       uses: actions/setup-python@v5
       with:
@@ -54,7 +57,6 @@ jobs:
         git config --local user.email "actions@github.com"
         git config --local user.name "GitHub Actions"
         
-        # 提交更新文件
         git add bbxx.txt bbxx.m3u bbxx_lite.txt bbxx_lite.m3u others_output.txt tiyu.html
         if git diff --staged --quiet; then
           echo "No changes to commit for generated files"
@@ -62,7 +64,7 @@ jobs:
           git commit -m ":tada: AutoUpdate $(date +'%Y%m%d')"
         fi
         
-        # 归档
+        mkdir -p history
         current_datetime=$(date +"%Y%m%d_%H%M%S")
         zip_filename="history/${current_datetime}_archive_output.zip"
         zip -j "${zip_filename}" others_output.txt
@@ -73,3 +75,5 @@ jobs:
       uses: ad-m/github-push-action@v0.6.0
       with:
         github_token: ${{ secrets.GITHUB_TOKEN }}
+        branch: master
+        pull: rebase         # 先 git pull --rebase，再 git push
