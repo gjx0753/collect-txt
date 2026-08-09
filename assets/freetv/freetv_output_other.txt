@@ -1,5 +1,5 @@
 更新时间,#genre#
-20260808 23:12:58,url
+20260809 08:00:14,url
 
 
 freetv_other,#genre#
@@ -61,7 +61,7 @@ tvbs新闻,https://t.freetv.fun/live/tvbsxin-wen.m3u8
 台視新聞,https://t.freetv.fun/live/tai-shi-xin-wen-3.m3u8
 台視新聞,https://t.freetv.fun/live/tai-shi-xin-wen.m3u8
 台視財經,https://t.freetv.fun/live/tai-shi-cai-jing.ts
-嘉佳卡通,https://t.freetv.fun/live/jia-jia-qia-tong-8.m3u8
+嘉佳卡通,https://t.freetv.fun/live/jia-jia-qia-tong.m3u8
 大竹新闻综合,https://t.freetv.fun/live/da-zhu-xin-wen-zong-he.m3u8
 安徽影视,https://t.freetv.fun/live/an-hui-ying-shi-2.m3u8
 安徽综艺体育,https://t.freetv.fun/live/an-hui-zong-yi-ti-yu.m3u8
@@ -145,6 +145,7 @@ tvbs新闻,https://t.freetv.fun/live/tvbsxin-wen.m3u8
 广州综合,https://t.freetv.fun/live/yan-zhou-zong-he-1.m3u8
 广州综合,https://t.freetv.fun/live/yan-zhou-zong-he-2.php
 广州综合,https://t.freetv.fun/live/yan-zhou-zong-he-3.m3u8
+广州综合,https://t.freetv.fun/live/yan-zhou-zong-he-4.m3u8
 广州综合,https://t.freetv.fun/live/yan-zhou-zong-he-5.m3u8
 广州综合,https://t.freetv.fun/live/yan-zhou-zong-he-7.m3u8
 广州综合,https://t.freetv.fun/live/yan-zhou-zong-he.m3u8
